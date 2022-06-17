@@ -12,5 +12,5 @@
     <%= price.currency %>
     <%= price.recurring.interval %>
   </b>
-  <%#= link_to "Pay #{price.unit_amount/100} per #{price.recurring.interval}", checkout_create_path(price: price.id), method: :post, remote: true, data: { disable_with: "validating..."} %>
+  <%= link_to "Pay #{price.unit_amount/100} per #{price.recurring.interval}", checkout_create_path(price: price.id), method: :post, data: { disable_with: "validating...", turbo: false} %>
 <% end %>                         
