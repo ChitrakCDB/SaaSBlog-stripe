@@ -28,6 +28,7 @@ class WebhooksController < ApplicationController
         @user = User.find_by(stripe_customer_id: session.customer)
         @user.update(subscription_status: 'active')
       when 'customer.subscription.updated', 'customer.subscription.deleted'
+        puts "===================================================================================="
         subscription = event.data.object
         @user = User.find_by(stripe_customer_id: subscription.customer)
         @user.update(
