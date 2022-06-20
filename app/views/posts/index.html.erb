@@ -5,7 +5,7 @@
     <% @posts.each do |post| %>
       <div class="card" style="width: 15rem;">
         <div class="card-body text-center">
-          <%=  image_tag url_for(post.header_image) %>
+          <%#=  image_tag url_for(post.header_image) %>
           <h5 class="card-title mt-4"><%= link_to post.title, post_path(post), class:"text-dark text-decoration-none"%></h5>
         </div>
       </div>
