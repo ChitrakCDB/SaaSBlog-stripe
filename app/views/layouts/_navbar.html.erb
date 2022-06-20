@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <a href="/" class="me-2"><%= image_tag("logo.png") %></a>
+      <span class="text-light"> The TypeWriter Speaks</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <% if current_user %>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="/pricing">Pricing</a>
+          </li>
+          <li class="nav-item">
+             <%= link_to "Manage Subscription", billing_portal_create_path,method: :post,data: {turbo: false}, class:"text-decoration-none text-light" %>
+          </li>
+        <% end %>
+        <li class="nav-item">
+          <% if signed_in? %>
+          &nbsp;
+            <%= link_to "Profile", edit_user_registration_path,class:"text-decoration-none text-light" %>
+          <% end %>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center">
+        <% if signed_in? %>
+          <%= link_to "New post", new_post_path ,class:"btn btn-success me-2" %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-danger" %>
+        <% else %>
+          <%= link_to "Log in", new_user_session_path, class:"btn-success border-0 rounded-pill shadow px-3 py-2 m-2 text-decoration-none" %>
+          <%= link_to "Register", new_user_registration_path, class:"btn-primary border-0 rounded-pill shadow px-3 py-2 my-2 text-decoration-none" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</nav>

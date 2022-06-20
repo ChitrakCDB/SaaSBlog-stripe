@@ -1,16 +1,13 @@
-
-<h1>Pricing</h1>
-
+<div class="d-flex justify-content-center mt-5">
 <% @pricing.each do |price| %>
-  <br>
-  <b>
-    <%= price.product.name %>
-  </b>
-  <small><%= price.lookup_key %></small>
-  <b>
-    <%= price.unit_amount/100 %>
-    <%= price.currency %>
-    <%= price.recurring.interval %>
-  </b>
-  <%= link_to "Pay #{price.unit_amount/100} per #{price.recurring.interval}", checkout_create_path(price: price.id), method: :post, data: { disable_with: "validating...", turbo: false} %>
-<% end %>                         
+  <div class="columns">
+    <ul class="price">
+      <li class="header"><%= price.lookup_key %></li>
+      <li class="grey"> <%= price.unit_amount/100 %> <%= price.currency %> </li>
+     
+      <li class="grey">  <%= link_to "Pay #{price.unit_amount/100} per #{price.recurring.interval}", checkout_create_path(price: price.id), method: :post, data: { disable_with: "validating...", turbo: false}, class: "btn btn-success" %>
+      </li>
+    </ul>
+  </div>
+<% end %>
+</div>
