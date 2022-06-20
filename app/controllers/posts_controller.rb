@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
-
+  before_action :set_s3_direct_post, only: [:new, :edit, :create, :update]
   # GET /posts or /posts.json
   def index
     if current_user.subscription_status == "active"
@@ -64,6 +64,12 @@ class PostsController < ApplicationController
     end
   end
 
+  def delete_file
+    file = ActiveStorage::Attachment.find(params[:id])
+    file.purge
+    redirect_back(fallback_location: posts_path)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -72,6 +78,10 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :premium)
+      params.require(:post).permit(:title, :content, :premium, :header_image, files: [])
     end
+
+    def set_s3_direct_post
+      # @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+   end
 end

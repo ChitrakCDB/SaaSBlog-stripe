@@ -1,10 +1,41 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @post %>
-
+<p id="notice"><%= notice %></p>
+<h1>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</h1>
+<p>
+  <div class="img-show">
+    <% if @post.header_image.attached? %>
+      <% if @post.header_image.content_type.include?("image") %>
+        <%#= image_tag @post.header_image.variant(resize: "600x500") %>
+        <%= image_tag url_for(@post.header_image) %>
+      <% else %>
+        <%= video_tag url_for(@post.header_image),controls: true%>
+      <% end %>
+    <% end %>
+  </div>
+</p>
+<p>
+  <strong>Body:</strong>
+  <%= @post.content %>
+</p>
+<div class="img-show">
+  <% if @post.files.any? %>
+    <h3> Attachments:</h3>
+    <% @post.files.each do |file| %>
+      <% if file.variable? %>
+        <%= image_tag url_for(file) %>
+      <% elsif file.previewable? %>
+        <%= image_tag url_for(file), rails_blob_path(file, disposition: :attachment) %>
+      <% else %>
+        <%= link_to file.filename, rails_blob_path(file, disposition: :attachment) %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
 <div>
   <%= link_to "Edit this post", edit_post_path(@post) %> |
   <%= link_to "Back to posts", posts_path %>
-
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
