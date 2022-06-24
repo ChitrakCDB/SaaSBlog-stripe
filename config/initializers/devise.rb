@@ -59,8 +59,14 @@ Devise.setup do |config|
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
   config.case_insensitive_keys = [:email]
-
-  # Configure which authentication keys should have whitespace stripped.
+  config.omniauth :google_oauth2, Rails.application.credentials.google[:GOOGLE_OAUTH_CLIENT_ID], Rails.application.credentials.google[:GOOGLE_OAUTH_CLIENT_SECRET],scope:'email'
+  # Rails.application.config.middleware.use OmniAuth::Builder do
+  #   OmniAuth.config.allowed_request_methods = [:post, :get]
+  
+  #   provider :google_oauth2, Rails.application.credentials[:google][:GOOGLE_OAUTH_CLIENT_ID], 
+  #       Rails.application.credentials[:google][:GOOGLE_OAUTH_CLIENT_SECRET], {scope: "email"}
+  # end
+ # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
   config.strip_whitespace_keys = [:email]

@@ -5,7 +5,9 @@ ruby "3.1.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3"
-
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+#gem 'omniauth-rails_csrf_protection'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 gem "stripe"
@@ -16,6 +18,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 gem 'devise'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 gem "jquery-rails"

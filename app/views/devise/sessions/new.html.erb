@@ -24,6 +24,7 @@
         </div>
       <% end %>
       <hr>
+      <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, method: :post %>
       <div>
         <p>Don't have an account? 
           <%= link_to "Sign up", new_registration_path(resource_name) %><br />
