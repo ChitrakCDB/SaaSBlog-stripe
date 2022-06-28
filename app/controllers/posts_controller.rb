@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
   before_action :set_s3_direct_post, only: [:new, :edit, :create, :update]
+  load_and_authorize_resource
   # GET /posts or /posts.json
   def index
     if current_user.subscription_status == "active"
@@ -78,7 +79,7 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :content, :premium, :header_image, files: [])
+      params.require(:post).permit(:title, :user_id, :content, :premium, :header_image, files: [])
     end
 
     def set_s3_direct_post

@@ -35,7 +35,11 @@
   <% end %>
 </div>
 <div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
+  <%  if can? :update, @post%>
+   <%= link_to "Edit this post", edit_post_path(@post) %>
+  <%end%>
   <%= link_to "Back to posts", posts_path %>
-  <%= button_to "Destroy this post", @post, method: :delete %>
+  <%  if can? :delete, @post%>
+   <%= button_to "Destroy this post", @post, method: :delete %>
+  <%end%>
 </div>
