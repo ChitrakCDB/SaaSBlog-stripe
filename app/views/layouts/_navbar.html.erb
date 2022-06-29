@@ -17,20 +17,25 @@
             <a class="nav-link text-light" href="/pricing">Pricing</a>
           </li>
           <li class="nav-item">
-             <%= link_to "Manage Subscription", billing_portal_create_path,method: :post,data: {turbo: false}, class:"text-decoration-none text-light" %>
+            <%= link_to "Manage Subscription", billing_portal_create_path,method: :post,data: {turbo: false}, class:"text-decoration-none text-light" %>
+          </li>
+          &nbsp;
+          <li class="nav-item">
+            <%#= link_to "Your Write-Ups", writeups_path , class:"text-decoration-none text-light" %>
           </li>
         <% end %>
         <li class="nav-item">
           <% if signed_in? %>
-          &nbsp;
+            &nbsp;
             <%= link_to "Profile", edit_user_registration_path,class:"text-decoration-none text-light" %>
           <% end %>
         </li>
       </ul>
       <div class="d-flex align-items-center">
         <% if signed_in? %>
-          <%= link_to "New post", new_post_path ,class:"btn btn-success me-2" %>
-          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-danger" %>
+          <%= link_to "My Posts", writeups_path, class:"btn btn-primary border-0 rounded-pill shadow px-3 py-2 m-2 text-decoration-none me-2"  %>
+          <%= link_to "New post", new_post_path , class:"btn btn-success border-0 rounded-pill shadow px-3 py-2 m-2 text-decoration-none me-2" %>
+          <%= button_to "Log out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class:"btn btn-danger border-0 rounded-pill shadow px-3 py-2 m-2 text-decoration-none" %>
         <% else %>
           <%= link_to "Log in", new_user_session_path, class:"btn-success border-0 rounded-pill shadow px-3 py-2 m-2 text-decoration-none" %>
           <%= link_to "Register", new_user_registration_path, class:"btn-primary border-0 rounded-pill shadow px-3 py-2 my-2 text-decoration-none" %>

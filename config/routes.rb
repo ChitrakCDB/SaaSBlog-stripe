@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   end
   resources :webhooks, only: [:create]
   get "pricing", to: "static_pages#pricing"
+  get "writeups", to: "static_pages#writeups"
+  # get ""
   post "checkout/create", to:"checkout#create", as:"checkout_create"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   post "billing_portal/create", to:"billing_portal#create", as:"billing_portal_create"
