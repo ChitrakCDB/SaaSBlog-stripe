@@ -1,0 +1,10 @@
+<div>
+  <p>
+    <strong><%= comment.user.email %>:</strong>
+    <%= comment.comment_text %>
+    <%  if can? :delete, comment%>
+      <%= link_to 'Delete', [comment.post, comment],
+                  method: :delete, class: "btn-danger  mt-4  border-0 p-2 rounded-pill text-decoration-none center", data: { confirm: 'Are you sure?' } %>
+    <%end%>
+  </p>
+</div>

@@ -13,6 +13,8 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    @comment = @post.comments.new()
+    @all_comments = @post.comments.all
     if @post.premium? && current_user.subscription_status != "active"
       redirect_to posts_path, alert:"Only for active Subscribers"
     end

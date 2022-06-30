@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  # get 'comments/create'
+  # get 'comments/destroy'
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
   resources :users
   resources :posts do
+    resources :comments
     member do
       delete :delete_file
     end

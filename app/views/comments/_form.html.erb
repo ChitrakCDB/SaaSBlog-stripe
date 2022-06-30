@@ -1,0 +1,7 @@
+<%= form_with(model: [post, comment])  do |f| %>
+  <%= f.hidden_field :user_id,value: current_user.id%>
+  <%= f.hidden_field :post_id,value: post.id%>
+  <%= f.label :comment, "Comment :", class:"mt-3" %>
+  <%= f.text_field :comment_text, placeholder: "Enter comment", class:"mb-2 form-control" %>
+  <%= f.submit 'Leave a reply',  class:"btn-success  mt-4  border-0 p-2 rounded-pill center"%>
+<% end %>

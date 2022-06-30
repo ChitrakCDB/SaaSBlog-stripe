@@ -4,8 +4,13 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    can :manage,Post,user_id: user.id
+    can [:read, :update, :destroy, :delete],Post,user_id: user.id
     can :read, :all
+    can :manage,Comment,user_id: user.id
+    #binding.pry
+    if user.subscription_status == 'active'
+      can :create,Post,premium: true
+    end
     # Define abilities for the user here. For example:
     #
     #   return unless user.present?
