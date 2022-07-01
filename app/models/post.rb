@@ -3,6 +3,6 @@ class Post < ApplicationRecord
     scope :free, ->{where(premium: false)}
     has_one_attached :header_image
     has_many_attached :files
-    belongs_to :user, dependent: :destroy
+    belongs_to :user
     has_many :comments, dependent: :destroy
 end

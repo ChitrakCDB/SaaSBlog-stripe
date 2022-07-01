@@ -1,52 +1,85 @@
-<p style="color: green"><%= notice %></p>
-<p id="notice"><%= notice %></p>
-<h1>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</h1>
-<p>
-  <div class="img-show">
-    <% if @post.header_image.attached? %>
-      <% if @post.header_image.content_type.include?("image") %>
-        <%#= image_tag @post.header_image.variant(resize: "600x500") %>
-        <%= image_tag url_for(@post.header_image) %>
-      <% else %>
-        <%= video_tag url_for(@post.header_image),controls: true%>
+<div class="container">
+  <p style="color: green">
+    <%= notice %>
+  </p>
+  <p id="notice">
+    <%= notice %>
+  </p>
+  
+    <div class="text-center">
+      <h1>
+        <strong>Title:</strong>
+        <%= @post.title %>
+      </h1>
+      <p>
+        <div class="img-show">
+          <% if @post.header_image.attached? %>
+            <% if @post.header_image.content_type.include?("image") %>
+              <%#= image_tag @post.header_image.variant(resize: "600x500" ) %>
+              <%= image_tag url_for(@post.header_image) %>
+            <% else %>
+              <%= video_tag url_for(@post.header_image),controls: true%>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <p>
+        <strong>Body:</strong>
+        <%= @post.content %>
+      </p>
+   
+    <br>
+    <hr>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <% if @post.header_image.attached? %>
+            <% if @post.header_image.content_type.include?("image") %>
+              <%#= image_tag @post.header_image.variant(resize: "600x500" ) %>
+              <%= image_tag url_for(@post.header_image), style:"width:28%;" %>
+            <% else %>
+              <%= video_tag url_for(@post.header_image),controls: true%>
+            <% end %>
+          <% end %>
+        </div>
+        <% if @post.files.any? %>
+          <% @post.files.each do |file| %>
+            <div class="carousel-item">
+              <% if file.variable? %>
+                <%= image_tag url_for(file), style:"width:28%;" %>
+              <% elsif file.previewable? %>
+                <%= image_tag url_for(file), rails_blob_path(file, disposition: :attachment), style:"width:28%;" %>
+              <% else %>
+                <%= link_to file.filename, rails_blob_path(file, disposition: :attachment) %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <br>
+    <div>
+      <h2> Comments : </h2>
+      <% @all_comments.each do |comment_val| %>
+        <%= render "comments/comment" ,comment: comment_val %>
       <% end %>
-    <% end %>
+      <%= render "comments/form" , post: @post, comment: @comment %>
+    </div>
+    <div>
+      <% if can? :update, @post%>
+        <%= link_to "Edit this post" , edit_post_path(@post) %>
+      <%end%>
+      <%= link_to "Back to posts" , posts_path %>
+      <% if can? :delete, @post%>
+        <%= button_to "Destroy this post" , @post, method: :delete ,data: { confirm: 'Are you sure?' }, class:"btn-danger border-0 p-2 rounded center"%>
+      <%end%>
+    </div>
   </div>
-</p>
-<p>
-  <strong>Body:</strong>
-  <%= @post.content %>
-</p>
-<div class="img-show">
-  <% if @post.files.any? %>
-    <h3> Attachments:</h3>
-    <% @post.files.each do |file| %>
-      <% if file.variable? %>
-        <%= image_tag url_for(file) %>
-      <% elsif file.previewable? %>
-        <%= image_tag url_for(file), rails_blob_path(file, disposition: :attachment) %>
-      <% else %>
-        <%= link_to file.filename, rails_blob_path(file, disposition: :attachment) %>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
-<br>
-<div>
-<% @all_comments.each do |comment_val| %>
-  <%= render "comments/comment",comment: comment_val %>
-<% end %>
-<%= render "comments/form", post: @post, comment: @comment %>
-</div>
-<div>
-  <%  if can? :update, @post%>
-   <%= link_to "Edit this post", edit_post_path(@post) %>
-  <%end%>
-  <%= link_to "Back to posts", posts_path %>
-  <%  if can? :delete, @post%>
-   <%= button_to "Destroy this post", @post, method: :delete ,data: { confirm: 'Are you sure?' }%>
-  <%end%>
-</div>
