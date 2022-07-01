@@ -10,6 +10,8 @@ class Ability
     #binding.pry
     if user.subscription_status == 'active'
       can :create,Post,premium: true
+    else  
+      can :create,Post,premium: false
     end
     # Define abilities for the user here. For example:
     #
