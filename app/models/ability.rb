@@ -9,7 +9,7 @@ class Ability
     can :manage,Comment,user_id: user.id
     #binding.pry
     if user.subscription_status == 'active'
-      can :create,Post,premium: true
+      can :create,Post
     else  
       can :create,Post,premium: false
     end
